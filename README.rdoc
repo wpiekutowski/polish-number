@@ -1,6 +1,9 @@
 = polish-number
 Translates numbers to Polish words
 
+= Installation
+  gem install polish-number
+
 = Usage
   require 'polish_number'
   
