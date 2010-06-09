@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name = "polish-number"
   s.rubyforge_project = "polish-number"
   s.homepage = "http://github.com/wpiekutowski/polish-number"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   s.authors = ["Wojciech Piekutowski"]
   s.email = "wojciech@piekutowski.net"
   s.files = ['lib/polish_number.rb']
@@ -14,3 +14,4 @@ Gem::Specification.new do |s|
   s.rdoc_options << "--title" << "polish-number documentation" <<
                     "--main"  << "README.rdoc" << "-q"
 end
+
