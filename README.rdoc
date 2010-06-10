@@ -6,7 +6,7 @@ Translates numbers to Polish words
 
 = Usage
   require 'polish_number'
-  
+
   PolishNumber.translate(1234) #=> tysiąc dwieście trzydzieści cztery
 
 = Running specs
@@ -14,7 +14,7 @@ Translates numbers to Polish words
   rake test
 
 = TODO
-- currently works for number 0-1999. Make it work with millions, billions, etc
+- currently works for numbers 0-999999. Make it work with millions, billions, etc
 - optional noun pluralization
 
 = GitHub
@@ -22,3 +22,4 @@ http://github.com/wpiekutowski/polish-number
 
 =Credits
 polish-number is maintained by {Wojciech Piekutowski}[http://piekutowski.net].
+
