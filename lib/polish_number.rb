@@ -15,7 +15,7 @@ module PolishNumber
 
   ZERO = 'zero'
 
-  THOUSANDS = ['', 'tysiąc ', 'tysiące ', 'tysięcy ']
+  THOUSANDS = {:one => 'tysiąc', :few => 'tysiące', :many => 'tysięcy'}
 
   CURRENCIES = {
     :PLN => {:one => 'złoty', :few => 'złote', :many => 'złotych'}
@@ -40,7 +40,8 @@ module PolishNumber
 
       result = ''
       result << process_0_999(digits[0..2])
-      result << thousands(digits[0..2])
+      result << thousands(number/1000, digits[0..2])
+      result << ' '
       result << process_0_999(digits[3..5])
       result.strip!
     end
@@ -48,15 +49,7 @@ module PolishNumber
     if options[:currency]
       currency = CURRENCIES[options[:currency]]
       result << ' '
-      result <<
-        if number == 1
-          currency[:one]
-        # all numbers with 2, 3 or 4 at the end, but not teens
-        elsif digits && [2, 3, 4].include?(digits[-1]) && digits[-2] != 1
-          currency[:few]
-        else
-          currency[:many]
-        end
+      result << currency[classify(number, digits)]
     end
 
     result
@@ -78,17 +71,22 @@ module PolishNumber
     result
   end
 
-  def self.thousands(digits)
-    if digits[0] == 0 && digits[1] == 0 && digits[2] == 0
-      thousand_id = 0
-    elsif digits[0] == 0 && digits[1] == 0 && digits[2] == 1
-      thousand_id = 1
-    elsif digits[1] != 1 && (2..4).include?(digits[2])
-      thousand_id = 2
+  def self.thousands(number, digits)
+    if number == 0
+      ''
     else
-      thousand_id = 3
+      THOUSANDS[classify(number, digits)]
     end
-    THOUSANDS[thousand_id]
+  end
+
+  def self.classify(number, digits)
+    if number == 1
+      :one
+    # all numbers with 2, 3 or 4 at the end, but not teens
+    elsif digits && (2..4).include?(digits[-1]) && digits[-2] != 1
+      :few
+    else
+      :many
+    end
   end
 end
-
