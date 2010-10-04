@@ -17,7 +17,16 @@ module PolishNumber
 
   THOUSANDS = ['', 'tysiąc ', 'tysiące ', 'tysięcy ']
 
-  def self.translate(number)
+  CURRENCIES = {
+    nil => nil,
+    :PLN => ['złoty', 'złote', 'złotych']
+  }
+
+  def self.translate(number, options={})
+    unless CURRENCIES.has_key?(options[:currency])
+      raise ArgumentError, "unknown :currency option '#{options[:currency].inspect}'. Choose one from: #{CURRENCIES.inspect}"
+    end
+
     number = number.to_i
 
     unless (0..999999).include? number

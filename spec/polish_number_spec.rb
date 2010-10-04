@@ -44,5 +44,9 @@ describe :PolishNumber do
   it "should raise ArgumentError when number is greater than 999999.99" do
     lambda { PolishNumber.translate(1_000_000) }.should.raise(ArgumentError)
   end
-end
 
+  it "should raise ArgumentError when currency is unknown" do
+    lambda { PolishNumber.translate(1_000_000, :currency => :ABC) }.
+      should.raise(ArgumentError)
+  end
+end
