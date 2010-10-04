@@ -18,12 +18,11 @@ module PolishNumber
   THOUSANDS = ['', 'tysiąc ', 'tysiące ', 'tysięcy ']
 
   CURRENCIES = {
-    nil => nil,
-    :PLN => ['złoty', 'złote', 'złotych']
+    :PLN => {:one => 'złoty', :few => 'złote', :many => 'złotych'}
   }
 
   def self.translate(number, options={})
-    unless CURRENCIES.has_key?(options[:currency])
+    if options[:currency] && !CURRENCIES.has_key?(options[:currency])
       raise ArgumentError, "unknown :currency option '#{options[:currency].inspect}'. Choose one from: #{CURRENCIES.inspect}"
     end
 
@@ -33,16 +32,33 @@ module PolishNumber
       raise ArgumentError, 'number should be in 0..999999 range'
     end
 
-    return ZERO.dup if number == 0
+    if number == 0
+      result = ZERO.dup
+    else
+      formatted_number = sprintf('%06.0f', number)
+      digits = formatted_number.chars.map { |char| char.to_i }
 
-    formatted_number = sprintf('%06.0f', number)
-    digits = formatted_number.chars.map { |char| char.to_i }
+      result = ''
+      result << process_0_999(digits[0..2])
+      result << thousands(digits[0..2])
+      result << process_0_999(digits[3..5])
+      result.strip!
+    end
 
-    result = ''
-    result << process_0_999(digits[0..2])
-    result << thousands(digits[0..2])
-    result << process_0_999(digits[3..5])
-    result.strip!
+    if options[:currency]
+      currency = CURRENCIES[options[:currency]]
+      result << ' '
+      result <<
+        if number == 1
+          currency[:one]
+        # all numbers with 2, 3 or 4 at the end, but not teens
+        elsif digits && [2, 3, 4].include?(digits[-1]) && digits[-2] != 1
+          currency[:few]
+        else
+          currency[:many]
+        end
+    end
+
     result
   end
 

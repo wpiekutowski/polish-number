@@ -10,6 +10,8 @@ Translates numbers to Polish words
   require 'polish_number'
 
   PolishNumber.translate(1234) #=> tysiąc dwieście trzydzieści cztery
+  PolishNumber.translate(34, :currency => :PLN) #=> trzydzieści cztery złote
+  PolishNumber.translate(12, :currency => :PLN) #=> dwanaście złotych
 
 = Running specs
 
