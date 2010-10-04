@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name = "polish-number"
   s.rubyforge_project = "polish-number"
   s.homepage = "http://github.com/wpiekutowski/polish-number"
-  s.version = "0.0.2"
+  s.version = "0.1.0"
   s.authors = ["Wojciech Piekutowski"]
   s.email = "wojciech@piekutowski.net"
   s.files = ['lib/polish_number.rb']
