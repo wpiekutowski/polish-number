@@ -14,5 +14,6 @@ Gem::Specification.new do |s|
   s.rdoc_options << "--title" << "polish-number documentation" <<
                     "--main"  << "README.rdoc" << "-q"
 
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'test-spec'
 end
