@@ -13,5 +13,6 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w{README.rdoc LICENSE COPYING}
   s.rdoc_options << "--title" << "polish-number documentation" <<
                     "--main"  << "README.rdoc" << "-q"
-end
 
+  s.add_development_dependency 'test-spec'
+end
