@@ -1,3 +1,5 @@
+===== polish-number has been renamed to polish_number and moved to https://github.com/amberbit/polish_number
+
 = polish-number
 Translates numbers to Polish words
 
